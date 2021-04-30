@@ -10,7 +10,7 @@ module HealthyData
       end
 
       def result
-        "#{args[:attribute]} (#{attribute}) is in the future"
+        "#{args.fetch(:attribute)} (#{attribute}) is in the future"
       end
 
     end

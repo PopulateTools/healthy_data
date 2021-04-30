@@ -37,11 +37,11 @@ module HealthyData
       end
 
       def attribute
-        item.send(args[:attribute])
+        item.send(args.fetch(:attribute))
       end
 
       def attributes
-        item.send(args[:attributes])
+        item.send(args.fetch(:attributes))
       end
 
       def check_passes?

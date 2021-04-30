@@ -9,7 +9,7 @@ module HealthyData
       end
 
       def result
-        "#{args[:attribute]} is missing"
+        "#{args.fetch(:attribute)} is missing"
       end
 
     end
