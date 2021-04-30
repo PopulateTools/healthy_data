@@ -1,6 +1,13 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require 'pry'
+require 'factory_bot'
+
 ENV['RAILS_ENV'] ||= 'test'
+
+app_path = File.expand_path("../dummy", __FILE__)
+$LOAD_PATH.unshift(app_path) unless $LOAD_PATH.include?(app_path)
+
 require File.expand_path('../dummy/config/environment.rb', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -14,8 +21,11 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

@@ -22,4 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 6.1.3", ">= 6.1.3.1"
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'factory_bot_rails'
+  spec.add_development_dependency 'database_cleaner'
 end
