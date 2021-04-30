@@ -41,7 +41,7 @@ module HealthyData
       end
 
       def attributes
-        item.send(args.fetch(:attributes))
+        args.fetch(:attributes).map{|attribute_name| item.send(attribute_name) }
       end
 
       def check_passes?
