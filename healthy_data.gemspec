@@ -17,7 +17,9 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir["*.{md,txt}", "{app,config,lib,vendor}/**/*"]
   spec.require_path  = "lib"
+  spec.test_files   = Dir["spec/**/*"]
 
   spec.add_dependency "rails", "~> 6.1.3", ">= 6.1.3.1"
-  spec.add_development_dependency 'pry', '~> 0.14.1', '>= 0.14.1'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rspec-rails'
 end
