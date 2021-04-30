@@ -9,11 +9,7 @@ module HealthyData
       end
 
       def result
-        "#{args[:attribute]} is missing in #{model_name}##{item.id}"
-      end
-
-      def attribute
-        item.send(args[:attribute])
+        "#{args[:attribute]} is missing"
       end
 
     end

@@ -3,6 +3,9 @@ class HealthyData::ItemCheck < ApplicationRecord
 
   belongs_to :checkable, polymorphic: true
 
+  scope :solved, -> { where(solved: true) }
+  scope :unsolved, -> { where(solved: false) }
+
   def recheck
     rule_class.new(item: checkable, model_name: checkable_type, args: args).call
   end

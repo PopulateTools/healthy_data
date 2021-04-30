@@ -36,6 +36,14 @@ module HealthyData
         self.class.name.split('::').last.underscore
       end
 
+      def attribute
+        item.send(args[:attribute])
+      end
+
+      def attributes
+        item.send(args[:attributes])
+      end
+
       def check_passes?
         raise NotImplementedError, 'Each subclass must define its own #check_passes? method'
       end
