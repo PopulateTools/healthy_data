@@ -1,0 +1,3 @@
+HealthyData.setup do |config|
+  config.item_rules_file_location = Rails.root.join("config/healthy_data.yml")
+end

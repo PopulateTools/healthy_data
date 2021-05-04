@@ -1,0 +1,10 @@
+---
+- model_name: Item
+  table: items
+  rules:
+    - attribute_is_present:
+        args:
+          attribute: amount
+    - date_attribute_is_past:
+        args:
+          attribute: start_date
