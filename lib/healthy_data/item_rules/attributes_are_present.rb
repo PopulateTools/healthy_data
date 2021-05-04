@@ -5,11 +5,11 @@ module HealthyData
       private
 
       def check_passes?
-        attributes.all?(&:present?)
+        attributes_values.all?(&:present?)
       end
 
       def result
-        args.fetch(:attributes).each_with_object([]) do |attribute_name, output|
+        attributes_names.each_with_object([]) do |attribute_name, output|
           next if item.send(attribute_name).present?
           output << "#{attribute_name} is missing"
         end.join('. ')

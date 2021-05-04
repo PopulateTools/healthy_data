@@ -5,21 +5,13 @@ module HealthyData
       private
 
       def check_passes?
-        return false if attribute.blank?
+        return false if attribute_value.blank?
 
-        attribute.between?(min_amount, max_amount)
+        attribute_value.between?(min_amount_name, max_amount_name)
       end
 
       def result
-        "#{args.fetch(:attribute)} (#{attribute}) is not within #{min_amount} and #{max_amount}"
-      end
-
-      def min_amount
-        args.fetch(:min_amount)
-      end
-
-      def max_amount
-        args.fetch(:max_amount)
+        "#{attribute_name} (#{attribute_value}) is not within #{min_amount_name} and #{max_amount_name}"
       end
 
     end

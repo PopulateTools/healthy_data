@@ -14,22 +14,6 @@ module HealthyData
         "#{end_date_attribute_name} (#{end_date_attribute_value}) is before #{end_date_attribute_name} (#{end_date_attribute_value})"
       end
 
-      def start_date_attribute_value
-        item.send start_date_attribute_name
-      end
-
-      def end_date_attribute_value
-        item.send args.fetch(:end_date_attribute)
-      end
-
-      def start_date_attribute_name
-        args.fetch(:start_date_attribute)
-      end
-
-      def end_date_attribute_name
-        args.fetch(:end_date_attribute)
-      end
-
     end
   end
 end

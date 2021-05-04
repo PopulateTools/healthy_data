@@ -36,12 +36,33 @@ module HealthyData
         self.class.name.split('::').last.underscore
       end
 
-      def attribute
+      # attribute_value, attribute_name, etc.
+      # - *_name: content in yml
+      # - *_value: value of the attribute with the same name for the item
+      # i.e.: attribute_name is "amount", attribute_value is the value of the column "amount" in item.
+      def method_missing method_name,*method_args, &method_block
+        if method_name.end_with?('_name') || method_name.end_with?('_names')
+          attribute = method_name.to_s.gsub(/_name(s)?$/,'')
+          args.fetch(attribute)
+        elsif method_name.end_with?('_value')
+          attribute = method_name.to_s.gsub('_value','')
+          attribute_name = send("#{attribute}_name")
+          item.send attribute_name
+        elsif method_name.end_with?('_values')
+          attribute = method_name.to_s.gsub('_values','')
+          attribute_names = send("#{attribute}_names")
+          attribute_names.map{|attribute_name| item.send(attribute_name) }
+        else
+          super
+        end
+      end
+
+      def attribute_value
         item.send(args.fetch(:attribute))
       end
 
-      def attributes
-        args.fetch(:attributes).map{|attribute_name| item.send(attribute_name) }
+      def attribute_value
+        item.send(args.fetch(:attribute))
       end
 
       def check_passes?

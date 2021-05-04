@@ -5,12 +5,12 @@ module HealthyData
       private
 
       def check_passes?
-        return true if attribute.blank?
-        attribute < Time.now
+        return true if attribute_value.blank?
+        attribute_value < Time.now
       end
 
       def result
-        "#{args.fetch(:attribute)} (#{attribute}) is in the future"
+        "#{attribute_name} (#{attribute_value}) is in the future"
       end
 
     end

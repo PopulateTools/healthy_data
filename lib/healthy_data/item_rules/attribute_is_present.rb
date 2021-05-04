@@ -5,11 +5,11 @@ module HealthyData
       private
 
       def check_passes?
-        attribute.present?
+        attribute_value.present?
       end
 
       def result
-        "#{args.fetch(:attribute)} is missing"
+        "#{attribute_name} is missing"
       end
 
     end
