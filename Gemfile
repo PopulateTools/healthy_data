@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Specify your gem's dependencies in healthy_data.gemspec.
 gemspec
 
-group :development do
+group :development, :test do
   gem 'sqlite3'
 end
 
