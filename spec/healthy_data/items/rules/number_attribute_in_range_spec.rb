@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe HealthyData::ItemRules::NumberAttributeInRange do
+RSpec.describe HealthyData::Items::Rules::NumberAttributeInRange do
 
   let(:item) { create(:item, amount: amount) }
   let(:model_name) { 'Item' }

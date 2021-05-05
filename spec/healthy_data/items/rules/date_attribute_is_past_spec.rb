@@ -1,16 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe HealthyData::ItemRules::DateAttributesEndAndStartValid do
+RSpec.describe HealthyData::Items::Rules::DateAttributeIsPast do
 
-  let(:item) { create(:item, start_date: start_date, end_date: end_date) }
+  let(:item) { create(:item, end_date: end_date) }
   let(:model_name) { 'Item' }
-  let(:args) { {start_date_attribute: 'start_date', end_date_attribute: 'end_date'} }
+  let(:args) { {attribute: 'end_date'} }
 
   subject { described_class.new(item: item, model_name: model_name, args: args) }
 
   context 'check passes' do
-    let(:start_date) { 1.year.ago }
-    let(:end_date) { 2.months.ago }
+    let(:end_date) { 5.days.ago }
 
     describe '#call' do
       it 'does not create item check for the item' do
@@ -22,8 +21,7 @@ RSpec.describe HealthyData::ItemRules::DateAttributesEndAndStartValid do
   end
 
   context 'check does not pass' do
-    let(:start_date) { 1.year.ago }
-    let(:end_date) { 13.months.ago }
+    let(:end_date) { 5.days.from_now }
 
     describe '#call' do
       it 'create item check for the item. mark it as solved once fixed' do
@@ -34,7 +32,7 @@ RSpec.describe HealthyData::ItemRules::DateAttributesEndAndStartValid do
         expect(item_check.checkable).to eq item
         expect(item_check.solved).to be false
 
-        item.update(end_date: 10.months.ago)
+        item.update(end_date: 3.days.ago)
 
         item_check.reload.recheck
 

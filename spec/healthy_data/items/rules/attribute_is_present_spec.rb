@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe HealthyData::ItemRules::DateAttributeIsPast do
+RSpec.describe HealthyData::Items::Rules::AttributeIsPresent do
 
-  let(:item) { create(:item, end_date: end_date) }
+  let(:item) { create(:item, amount: amount) }
   let(:model_name) { 'Item' }
-  let(:args) { {attribute: 'end_date'} }
+  let(:args) { {attribute: 'amount'} }
 
   subject { described_class.new(item: item, model_name: model_name, args: args) }
 
   context 'check passes' do
-    let(:end_date) { 5.days.ago }
+    let(:amount) { 32 }
 
     describe '#call' do
       it 'does not create item check for the item' do
@@ -21,7 +21,7 @@ RSpec.describe HealthyData::ItemRules::DateAttributeIsPast do
   end
 
   context 'check does not pass' do
-    let(:end_date) { 5.days.from_now }
+    let(:amount) { nil }
 
     describe '#call' do
       it 'create item check for the item. mark it as solved once fixed' do
@@ -32,7 +32,7 @@ RSpec.describe HealthyData::ItemRules::DateAttributeIsPast do
         expect(item_check.checkable).to eq item
         expect(item_check.solved).to be false
 
-        item.update(end_date: 3.days.ago)
+        item.update(amount: 12)
 
         item_check.reload.recheck
 
