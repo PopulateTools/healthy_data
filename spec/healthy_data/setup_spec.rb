@@ -9,31 +9,49 @@ RSpec.describe HealthyData::Setup do
     end
 
     after(:all){ FileUtils.rm(Rails.root.join('config/healthy_data.yml')) }
-
     after(:each) { HealthyData.item_rules = nil }
 
+    subject do
+      HealthyData.setup do |config|
+        config.item_rules_file_location = rules_file_location
+      end
+    end
+
     context 'valid setup' do
+      let(:rules_file_location) { Rails.root.join("config/healthy_data.yml") }
+
       let(:expected_rules) do
         YAML.load_file(Rails.root.join('../support/files/rules.yml'))
       end
 
       it 'returns a valid list of rules' do
-        HealthyData.setup do |config|
-          config.item_rules_file_location = Rails.root.join("config/healthy_data.yml")
-        end
-
+        subject
         expect(HealthyData.item_rules).to eq expected_rules
       end
     end
 
-    context 'missing setup' do
-      it 'returns nil' do
-        HealthyData.setup do |config|
-          config.item_rules_file_location = Rails.root.join("config/healthy_data_bad_path.yml")
-        end
-
-        expect(HealthyData.item_rules).to be_nil
+    context 'missing args' do
+      let(:rules_file_location) { Rails.root.join('../support/files/rules_without_args.yml') }
+      it 'raises the missing args error' do
+        expect { subject }.to raise_error(HealthyData::MissingArgsError)
       end
     end
+
+    context 'bad rule name' do
+      let(:rules_file_location) { Rails.root.join('../support/files/rules_with_wrong_name.yml') }
+
+      it 'raises the missing args error' do
+        expect { subject }.to raise_error(HealthyData::InvalidRuleNameError)
+      end
+    end
+
+    context 'missing setup' do
+      let(:rules_file_location) { Rails.root.join("config/nonexistent_file.yml") }
+
+      it 'returns nil' do
+        expect { subject }.to raise_error(HealthyData::MissingConfigFileError)
+      end
+    end
+
   end
 end

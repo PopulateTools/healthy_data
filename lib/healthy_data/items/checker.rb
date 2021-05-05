@@ -19,15 +19,9 @@ module HealthyData
 
       def iterate_rule_set
         rule_set.each do |rule|
-          check_config_for(rule)
           rule_class = rule_class_for(rule['name'])
           rule_class.new(item: item, model_name: model_name, args: rule.fetch('args')).call
         end
-      end
-
-      def check_config_for rule
-        raise HealthyData::InvalidRuleNameError if rule['name'].blank? || rule_class_for(rule['name']).blank?
-        raise HealthyData::MissingArgsError if rule['args'].blank?
       end
 
       def rule_class_for rule_name
