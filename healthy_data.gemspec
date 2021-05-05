@@ -15,9 +15,10 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = spec.homepage
   spec.metadata["changelog_uri"] = spec.homepage
 
-  spec.files         = Dir["*.{md,txt}", "{app,config,lib,vendor}/**/*"]
-  spec.require_path  = "lib"
-  spec.test_files   = Dir["spec/**/*"]
+  spec.files         = Dir["*.{md,txt}", "{app,config,lib,vendor,bin}/**/*"]
+  spec.test_files    = Dir["spec/**/*"]
+  spec.executables   = ['healthy-data']
+  spec.require_paths = "lib"
 
   spec.add_dependency "rails", "~> 6.1.3", ">= 6.1.3.1"
   spec.add_development_dependency 'pry'
