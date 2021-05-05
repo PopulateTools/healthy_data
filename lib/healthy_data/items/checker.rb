@@ -10,7 +10,9 @@ module HealthyData
 
       def call
         return false if rule_config.blank?
-        iterate_rule_set
+        ActiveRecord::Base.transaction do
+          iterate_rule_set
+        end
       end
 
       private
@@ -29,7 +31,7 @@ module HealthyData
       end
 
       def rule_class_for rule_name
-        base = ['HealthyData', 'ItemRules']
+        base = ['HealthyData', 'Items', 'Rules']
         base << rule_name.classify
 
         base.join('::').safe_constantize

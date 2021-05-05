@@ -5,6 +5,6 @@
     - name: "attribute_is_present"
       args:
         attribute: amount
-    - name: "date_attribute_is_past"
+    - name: "date_attribute_is_in_the_distant_past"
       args:
         attribute: start_date

@@ -3,8 +3,6 @@
   table: items
   rules:
     - name: "attribute_is_present"
-      args:
-        attribute: amount
     - name: "date_attribute_is_past"
       args:
         attribute: start_date

@@ -13,7 +13,7 @@ class HealthyData::ItemCheck < ApplicationRecord
   private
 
   def rule_class
-    base_namespace = ['HealthyData', 'ItemRules']
+    base_namespace = ['HealthyData', 'Items', 'Rules']
     base_namespace << rule.camelize
     base_namespace.join('::').safe_constantize
   end
