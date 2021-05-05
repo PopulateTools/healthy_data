@@ -8,7 +8,7 @@ module HealthyData
         def check_passes?
           return true if start_date_attribute_value.blank? || end_date_attribute_value.blank?
 
-          start_date_attribute_value < end_date_attribute_value
+          convert_to_date(start_date_attribute_value) < convert_to_date(end_date_attribute_value)
         end
 
         def result

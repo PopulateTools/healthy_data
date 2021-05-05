@@ -1,3 +1,4 @@
+require "healthy_data/items/processor"
 require "healthy_data/items/checker"
 require "healthy_data/items/rules"
 

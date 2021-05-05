@@ -7,7 +7,7 @@ module HealthyData
 
         def check_passes?
           return true if attribute_value.blank?
-          attribute_value < Time.now
+          convert_to_date(attribute_value) < Time.now
         end
 
         def result

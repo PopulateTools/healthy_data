@@ -3,6 +3,7 @@ module HealthyData
 
   # Config file related exceptions
   class ConfigError < Error; end
+  class MissingRulesError < ConfigError; end
   class MissingArgsError < ConfigError; end
   class InvalidRuleNameError < ConfigError; end
 end

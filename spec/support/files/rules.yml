@@ -1,6 +1,7 @@
 ---
 - model_name: Item
   table: items
+  sql_query: 'SELECT * FROM items WHERE amount > 10'
   rules:
     - name: "attribute_is_present"
       args:

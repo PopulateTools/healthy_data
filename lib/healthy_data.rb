@@ -15,7 +15,16 @@ module HealthyData
     extend HealthyData::Model
   end
 
+  def run_for_items model_name
+    raise HealthyData::MissingRulesError if item_rules_for(model_name).blank?
+    Items::Processor.new(item_rules_for(model_name)).call
+  end
+
   def item_rules_for model_name
     @item_rules.find{|rule_config| rule_config['model_name'] == model_name }
+  end
+
+  def available_rules
+    @item_rules.map{|rule_config| rule_config['model_name']}
   end
 end

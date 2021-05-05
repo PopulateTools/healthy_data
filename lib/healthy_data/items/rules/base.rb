@@ -74,6 +74,10 @@ module HealthyData
           raise NotImplementedError, 'Each subclass must define its own #result method'
         end
 
+        def convert_to_date value
+          value.is_a?(String) ? Date.parse(value) : value
+        end
+
       end
     end
   end
