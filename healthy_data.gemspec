@@ -21,8 +21,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = "lib"
 
   spec.add_dependency "rails", "~> 6.1.3", ">= 6.1.3.1"
-  spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'factory_bot_rails'
-  spec.add_development_dependency 'database_cleaner'
+  spec.add_development_dependency 'pry', '>= 0.14.1'
+  spec.add_development_dependency 'rspec-rails', '>= 5.0.1'
+  spec.add_development_dependency 'factory_bot_rails', '>= 6.1.0'
+  spec.add_development_dependency 'database_cleaner', '>= 2.0.1'
 end

@@ -172,11 +172,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  database_cleaner
-  factory_bot_rails
+  database_cleaner (>= 2.0.1)
+  factory_bot_rails (>= 6.1.0)
   healthy_data!
-  pry
-  rspec-rails
+  pry (>= 0.14.1)
+  rspec-rails (>= 5.0.1)
   sqlite3
 
 BUNDLED WITH
