@@ -26,7 +26,7 @@ module HealthyData
 
       def rule_class_for rule_name
         base = ['HealthyData', 'Items', 'Rules']
-        base << rule_name.classify
+        base << rule_name.camelize
 
         base.join('::').safe_constantize
       end
