@@ -8,7 +8,6 @@ module HealthyData
 
       def copy_templates
         template "healthy_data_initializer.rb", "config/initializers/healthy_data.rb"
-        template "active_record_item_check_model.rb", "app/models/healthy_data/item_check.rb"
         migration_template "active_record_migration.rb", "db/migrate/create_healthy_data_item_checks.rb", migration_version: migration_version
         puts "\nAlmost done. Please run:\n\n\t\trails db:migrate"
       end
