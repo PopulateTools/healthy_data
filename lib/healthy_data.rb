@@ -21,10 +21,10 @@ module HealthyData
   end
 
   def item_rules_for model_name
-    @item_rules.find{|rule_config| rule_config['model_name'] == model_name }
+    @item_rules.find{|model_rule_config| model_rule_config['model_name'] == model_name }
   end
 
   def available_rules
-    @item_rules.map{|rule_config| rule_config['model_name']}
+    @item_rules.map{|model_rule_config| model_rule_config['model_name']}
   end
 end
