@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir["*.{md,txt}", "{app,config,lib,vendor,bin}/**/*"]
   spec.test_files    = Dir["spec/**/*"]
+  spec.bindir = "bin/"
   spec.executables   = ['healthy-data']
   spec.require_paths = "lib"
 

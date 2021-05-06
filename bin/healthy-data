@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require "rails"
+require "healthy_data"
+require 'pry'
+
+def print_usage_and_exit
+  puts "Usage: healthy-data path_to_rules_yml item model_name..."
+  exit(0)
+end
+
+def log text
+  puts "[healthy-data] > #{text}"
+end
+
+print_usage_and_exit if ARGV.size < 3
+
+ACCEPTED_COMMANDS = %w(item)
+rules_path, command, *options = ARGV
+
+print_usage_and_exit unless ACCEPTED_COMMANDS.include?(command)
+
+HealthyData.setup do |config|
+  config.item_rules_file_location = rules_path
+end
+
+if command == 'item'
+  model_names = options
+  model_names.each do |model_name|
+    log("Start item checks for #{model_name}")
+    HealthyData.run_for_items("Item")
+  end
+end
