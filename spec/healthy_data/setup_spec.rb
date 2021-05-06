@@ -30,13 +30,6 @@ RSpec.describe HealthyData::Setup do
       end
     end
 
-    context 'missing args' do
-      let(:rules_file_location) { Rails.root.join('../support/files/rules_without_args.yml') }
-      it 'raises the missing args error' do
-        expect { subject }.to raise_error(HealthyData::MissingArgsError)
-      end
-    end
-
     context 'bad rule name' do
       let(:rules_file_location) { Rails.root.join('../support/files/rules_with_wrong_name.yml') }
 

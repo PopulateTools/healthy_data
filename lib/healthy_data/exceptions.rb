@@ -5,6 +5,5 @@ module HealthyData
   class ConfigError < Error; end
   class MissingConfigFileError < ConfigError; end
   class MissingRulesError < ConfigError; end
-  class MissingArgsError < ConfigError; end
   class InvalidRuleNameError < ConfigError; end
 end

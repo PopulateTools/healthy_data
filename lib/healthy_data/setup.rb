@@ -23,7 +23,6 @@ module HealthyData
     def validate_rules!(rule_configs)
       rule_configs.each do |rule_config|
         rule_config['rules'].each do |rule|
-          raise(HealthyData::MissingArgsError) if rule['args'].blank?
           raise(HealthyData::InvalidRuleNameError) unless rule_exists?(rule['name'])
         end
       end

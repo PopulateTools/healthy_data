@@ -20,7 +20,7 @@ module HealthyData
       def iterate_rule_set
         rule_set.each do |rule|
           rule_class = rule_class_for(rule['name'])
-          rule_class.new(item: item, model_name: model_name, args: rule.fetch('args')).call
+          rule_class.new(item: item, model_name: model_name, args: rule.fetch('args', {})).call
         end
       end
 
