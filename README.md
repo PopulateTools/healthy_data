@@ -1,7 +1,7 @@
 ![example workflow](https://github.com/PopulateTools/healthy_data/actions/workflows/build.yml/badge.svg)
 
 # HealthyData
-HealthyData is tool to test the integrity of the data in your database. It will run a set of predefined rules to each table and columns and check if the result is the expected. It will create a record for each rule that does not comply.
+HealthyData is tool to test the integrity of the data in your database. It will run a set of rules for each table and column and check if the result is the expected. If not, it will create a record for each rule that does not comply.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -26,9 +26,9 @@ If you are using it inside Rails you need to also run:
 $ bin/rails generate healthy_data:install
 ```
 
-## Rules config file
+## Setup
 
-You must define the rules for each table inside a YML and initialize HealthyData with its location such as:
+You must define the rules for each table inside a YML and initialize `HealthyData` with its location such as:
 
 ```ruby
 HealthyData.setup do |config|
@@ -42,7 +42,7 @@ The content of the file must be something like this:
 ---
 - model_name: Item
   table: items
-  sql_query: 'SELECT * FROM items WHERE amount > 10'
+  sql_query: 'SELECT * FROM items'
   rules:
     - name: "attribute_is_present"
       args:
@@ -52,14 +52,14 @@ The content of the file must be something like this:
         attribute: start_date
 ```
 
-The rules are define inside the app [item rules folder](lib/healthy_data/items/rules).
+The rules are defined inside the app [item rules folder](lib/healthy_data/items/rules).
 
 ## Creating your own rules
 
 You can create your own rules and link them in your yml config file. The have to inherit from [HealthyData::Items::Rules::Base](lib/healthy_data/items/rules/base.rb) and define two private methods:
 
 - `#check_passes?`: Will return a boolean indicating if the item has the appropiate data or not.
-- `#result`: When failing to comply, it provides an explanation on why the check failed that is added in the record
+- `#result`: When failing to comply the rule, it provides an explanation on why the check failed that is added in the result record.
 
 ## Usage inside a Rails App
 
