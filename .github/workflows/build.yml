@@ -5,8 +5,8 @@ name: build
 on: [push,pull_request]
 jobs:
   rspec-test:
-    name: rspec
-    runs-on: ubuntu-18.04
+    name: tests
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
