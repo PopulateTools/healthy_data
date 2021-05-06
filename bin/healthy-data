@@ -32,7 +32,7 @@ class HealthyDataCLI
 
         model_names.split(',').each do |model_name|
           log("Start item checks for #{model_name}")
-          HealthyData.run_for_items(model_name)
+          HealthyData.run(model_name)
           log("Finished item checks for #{model_name}")
         end
       end

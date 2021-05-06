@@ -15,7 +15,7 @@ module HealthyData
     extend HealthyData::Model
   end
 
-  def run_for_items model_name
+  def run model_name
     raise HealthyData::MissingRulesError if item_rules_for(model_name).blank?
     Items::Processor.new(item_rules_for(model_name)).call
   end
