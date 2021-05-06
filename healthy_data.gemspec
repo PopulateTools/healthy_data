@@ -17,11 +17,11 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir["*.{md,txt}", "{app,config,lib,vendor,bin}/**/*"]
   spec.test_files    = Dir["spec/**/*"]
-  spec.bindir = "bin/"
   spec.executables   = ['healthy-data']
   spec.require_paths = "lib"
 
   spec.add_dependency "rails", "~> 6.1.3", ">= 6.1.3.1"
+  spec.add_dependency "commander", "~> 4.6.0", ">= 4.6.0"
   spec.add_development_dependency 'pry', '>= 0.14.1'
   spec.add_development_dependency 'rspec-rails', '>= 5.0.1'
   spec.add_development_dependency 'factory_bot_rails', '>= 6.1.0'

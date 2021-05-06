@@ -1,4 +1,4 @@
-class HealthyData::ItemCheck < ApplicationRecord
+class HealthyData::ItemCheck < HealthyData::ApplicationRecord
   self.table_name = "healthy_data_item_checks"
 
   belongs_to :checkable, polymorphic: true

@@ -1,33 +1,52 @@
 #!/usr/bin/env ruby
 
+require 'commander'
+require 'bundler'
 require "rails"
 require "healthy_data"
+require_relative "../app/models/healthy_data/application_record"
+require_relative "../app/models/healthy_data/item_check"
 require 'pry'
 
-def print_usage_and_exit
-  puts "Usage: healthy-data path_to_rules_yml item model_name..."
-  exit(0)
-end
+class HealthyDataCLI
+  include Commander::Methods
 
-def log text
-  puts "[healthy-data] > #{text}"
-end
+  def run
+    program :name, 'HealthyData'
+    program :version, HealthyData::VERSION
+    program :description, 'Stupid command that prints foo or bar.'
 
-print_usage_and_exit if ARGV.size < 3
+    command :item do |c|
+      c.syntax = 'healthy-data item rules_path db_path model_name,...'
+      c.description = 'Run checkers for an item'
+      c.action do |args, _options|
+        rules_path, db_path, model_names = args
+        raise ArgumentError.new("You need to provide a rules yml path") if rules_path.blank?
+        raise ArgumentError.new("You need to provide a database config yml path") if db_path.blank?
+        raise ArgumentError.new("You need to provide a comman separated list of model names") if model_names.blank?
 
-ACCEPTED_COMMANDS = %w(item)
-rules_path, command, *options = ARGV
+        HealthyData.setup do |config|
+          config.item_rules_file_location = rules_path
+          config.db_config_file_location = db_path
+        end
 
-print_usage_and_exit unless ACCEPTED_COMMANDS.include?(command)
+        model_names.split(',').each do |model_name|
+          log("Start item checks for #{model_name}")
+          HealthyData.run_for_items(model_name)
+          log("Finished item checks for #{model_name}")
+        end
+      end
+    end
 
-HealthyData.setup do |config|
-  config.item_rules_file_location = rules_path
-end
-
-if command == 'item'
-  model_names = options
-  model_names.each do |model_name|
-    log("Start item checks for #{model_name}")
-    HealthyData.run_for_items("Item")
+    run!
   end
+
+  private
+
+  def log text
+    puts "[healthy-data] [#{DateTime.now.to_s}] #{text}"
+  end
+
 end
+
+HealthyDataCLI.new.run if $0 == __FILE__
