@@ -41,20 +41,29 @@ The content of the file must be something like this:
 ```yaml
 ---
 - model_name: Item
-  table: items
   sql_query: 'SELECT * FROM items'
   rules:
-    - name: "attribute_is_present"
+    - name: "number_attribute_in_range"
       args:
         attribute: amount
+        min_amount: 1
+        max_amount: 300
     - name: "date_attribute_is_past"
       args:
         attribute: start_date
 ```
 
+- `model_name`: The model from the table. If the rules are not met for a certain element, the process will create records with a polymorphic relation to the element.
+- `sql_query`: THe scope of elements on which we want to check the integrity of data.
+
+For each rule:
+
+- `name`: Name of the rule in snake case. Must exists in the predefined set of the gem or [you can create your own](#creating-your-own-rules).
+- `args`: (optional) A list of arguments that differs from rule to rule. Each rule may need knowledge about what attributes are relevant in each case. Other rules may need extra configuration. For example, consider the rule `number_attribute_in_range`, where we want to know if a value in a certain column is within a range. Since the rule is generic, we will need the name of the `attribute` we are checking. We will also need the max (`max_amount`) and min values (`min_amount`) of our ranges.
+
 The rules are defined inside the app [item rules folder](lib/healthy_data/items/rules).
 
-## Creating your own rules
+### Creating your own rules
 
 You can create your own rules and link them in your yml config file. The have to inherit from [HealthyData::Items::Rules::Base](lib/healthy_data/items/rules/base.rb) and define two private methods:
 
@@ -63,10 +72,24 @@ You can create your own rules and link them in your yml config file. The have to
 
 ## Usage inside a Rails App
 
-`HealthyData.run("ModelName")`
+For any model defined in the config file, run:
+
+```ruby
+HealthyData.run("ModelName")
+```
+
+You can also (optionally) put `has_healthy_data` to the model class to add a `healthy_data_item_checks` has_many relation with the checks.
 
 ## Usage as a CLI
 
+To run the checks:
+
+```bash
+$ healthy-data item rules_path db_path model_name,...
+```
+
+- `rules_path`: The path of the rules file
+- `db_path`: The path of a yml file with the configuration of the database where the process will take place. The config file structure must be the same as [the hash ActiveRecord uses to establish a connection](https://api.rubyonrails.org/classes/ActiveRecord/ConnectionHandling.html#method-i-establish_connection).
 
 ## Contributing
 Contribution directions go here.
