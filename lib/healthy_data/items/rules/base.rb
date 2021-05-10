@@ -62,10 +62,6 @@ module HealthyData
           item.send(args.fetch(:attribute))
         end
 
-        def attribute_value
-          item.send(args.fetch(:attribute))
-        end
-
         def check_passes?
           raise NotImplementedError, 'Each subclass must define its own #check_passes? method'
         end
