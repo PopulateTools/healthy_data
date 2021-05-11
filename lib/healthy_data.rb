@@ -20,6 +20,11 @@ module HealthyData
     Items::Processor.new(item_rules_for(model_name)).call
   end
 
+  def run_item item
+    raise HealthyData::MissingRulesError if item_rules_for(item.class.to_s).blank?
+    Items::Checker.new(item, item_rules_for(item.class.to_s)).call
+  end
+
   def item_rules_for model_name
     @item_rules.find{|model_rule_config| model_rule_config['model_name'] == model_name }
   end
