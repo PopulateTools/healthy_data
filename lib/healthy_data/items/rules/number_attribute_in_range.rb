@@ -6,7 +6,7 @@ module HealthyData
         private
 
         def check_passes?
-          return false if attribute_value.blank?
+          return true if attribute_value.blank?
 
           attribute_value.between?(min_amount_name, max_amount_name)
         end
